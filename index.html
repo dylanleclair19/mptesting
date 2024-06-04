@@ -8,49 +8,65 @@
 </head>
 <body>
     <h1>Metaplanet Stock Price and Realized Volatility</h1>
-    <div id="plotly-chart" style="width:100%;height:100%;"></div>
+    <div id="price-chart" style="width:100%;height:50%;"></div>
+    <div id="volatility-chart" style="width:100%;height:50%;"></div>
     <script>
         fetch('data.json')
             .then(response => response.json())
             .then(data => {
-                const trace1 = {
+                // Stock price trace
+                const priceTrace = {
                     x: data.dates,
                     y: data.prices,
                     type: 'scatter',
                     name: 'Daily Stock Price'
                 };
-                const trace2 = {
+
+                // Realized volatility traces
+                const vol7dTrace = {
                     x: data.dates,
                     y: data.vol_7d,
                     type: 'scatter',
                     name: '7d RV'
                 };
-                const trace3 = {
+                const vol14dTrace = {
                     x: data.dates,
                     y: data.vol_14d,
                     type: 'scatter',
                     name: '14d RV'
                 };
-                const trace4 = {
+                const vol30dTrace = {
                     x: data.dates,
                     y: data.vol_30d,
                     type: 'scatter',
                     name: '30d RV'
                 };
-                const trace5 = {
+                const vol90dTrace = {
                     x: data.dates,
                     y: data.vol_90d,
                     type: 'scatter',
                     name: '90d RV'
                 };
-                const layout = {
-                    title: 'Stock Price and Realized Volatility',
+
+                // Layout for stock price chart
+                const priceLayout = {
+                    title: 'Daily Stock Price',
                     xaxis: { title: 'Date' },
-                    yaxis: { title: 'Price' },
-                    yaxis2: { title: 'Volatility', overlaying: 'y', side: 'right' }
+                    yaxis: { title: 'Price' }
                 };
-                const dataPlot = [trace1, trace2, trace3, trace4, trace5];
-                Plotly.newPlot('plotly-chart', dataPlot, layout);
+
+                // Layout for volatility chart
+                const volatilityLayout = {
+                    title: 'Realized Volatility',
+                    xaxis: { title: 'Date' },
+                    yaxis: { title: 'Volatility' }
+                };
+
+                // Plot the stock price chart
+                Plotly.newPlot('price-chart', [priceTrace], priceLayout);
+
+                // Plot the volatility chart
+                Plotly.newPlot('volatility-chart', [vol7dTrace, vol14dTrace, vol30dTrace, vol90dTrace], volatilityLayout);
             });
     </script>
 </body>
