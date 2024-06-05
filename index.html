@@ -19,7 +19,8 @@
                     x: data.dates,
                     y: data.prices,
                     type: 'scatter',
-                    name: 'Stock Price'
+                    name: 'Stock Price',
+                    yaxis: 'y1'
                 };
 
                 // Bitcoin price trace
@@ -27,7 +28,8 @@
                     x: data.btc_dates,
                     y: data.btc_prices,
                     type: 'scatter',
-                    name: 'Bitcoin Price'
+                    name: 'Bitcoin Price',
+                    yaxis: 'y2'
                 };
 
                 // Realized volatility traces for stock
@@ -110,7 +112,8 @@
                 const priceLayout = {
                     title: 'Daily Stock and Bitcoin Prices',
                     xaxis: { title: 'Date' },
-                    yaxis: { title: 'Price' }
+                    yaxis: { title: 'Stock Price', side: 'left' },
+                    yaxis2: { title: 'Bitcoin Price', side: 'right', overlaying: 'y' }
                 };
 
                 // Layout for volatility chart
