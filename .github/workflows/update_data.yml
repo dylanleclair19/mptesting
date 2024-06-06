@@ -1,16 +1,3 @@
-The error indicates that the GitHub Actions workflow failed due to an issue with the Git command and a warning about using a deprecated Node.js version.
-
-### Fixes:
-
-1. **Node.js Update**:
-   Update `actions/setup-python` to use Node.js 20.
-
-2. **Git Command Error**:
-   Ensure proper Git configuration and permissions.
-
-### Updated Workflow File:
-
-```yaml
 name: Update data and deploy to GitHub Pages
 
 on:
@@ -47,11 +34,5 @@ jobs:
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v4
       with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./ # Ensure this is the correct directory
-```
-
-### Check Git Configuration:
-Make sure your Git configuration and permissions are correct, especially for pushing changes.
-
-Try these updates and monitor the next run for errors.
+        github_token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+        publish_dir: ./
