@@ -58,5 +58,5 @@ data_json = {
 }
 
 # Save to JSON file
-with open('data.json', 'w') as f:
+with open('data1.json', 'w') as f:
     json.dump(data_json, f)
