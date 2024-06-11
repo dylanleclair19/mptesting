@@ -27,6 +27,10 @@ jobs:
         run: |
           python generate_data.py
 
+      - name: Debugging: Print repository URL
+        run: |
+          echo "Repository URL: https://${{ secrets.PAT3 }}@github.com/dylanleclair19/mptesting.git"
+      
       - name: Commit and push changes
         env:
           PAT3: ${{ secrets.PAT3 }}
@@ -34,6 +38,7 @@ jobs:
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
           git remote set-url origin https://${{ secrets.PAT3 }}@github.com/dylanleclair19/mptesting.git
+          git remote -v
           git add data1.json
           git commit -m 'Automated data update'
-          git push https://${{ secrets.PAT3 }}@github.com/dylanleclair19/mptesting.git HEAD:main
+          git push origin HEAD:main
