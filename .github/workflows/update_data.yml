@@ -11,10 +11,10 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v3  # Updated to v3
 
       - name: Set up Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v4  # Updated to v4
         with:
           python-version: '3.x'
 
@@ -27,17 +27,13 @@ jobs:
         run: |
           python generate_data.py
 
-      - name: Print repository URL for debugging
-        run: echo "Repository URL: https://${{ secrets.PAT3 }}@github.com/dylanleclair19/mptesting.git"
-      
       - name: Commit and push changes
         env:
           PAT3: ${{ secrets.PAT3 }}
         run: |
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-          git remote set-url origin https://${{ secrets.PAT3 }}@github.com/dylanleclair19/mptesting.git
-          git remote -v
+          git remote set-url origin https://github-actions:${{ secrets.PAT3 }}@github.com/dylanleclair19/mptesting.git
           git add data1.json
           git commit -m 'Automated data update'
-          git push https://${{ secrets.PAT3 }}@github.com/dylanleclair19/mptesting.git HEAD:main
+          git push origin HEAD:main
