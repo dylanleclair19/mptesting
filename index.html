@@ -8,8 +8,9 @@
 </head>
 <body>
     <h1>Metaplanet Stock and Bitcoin Realized Volatility</h1>
-    <div id="price-chart" style="width:100%;height:50%;"></div>
-    <div id="volatility-chart" style="width:100%;height:50%;"></div>
+    <div id="price-chart" style="width:100%;height:33%;"></div>
+    <div id="volatility-chart" style="width:100%;height:33%;"></div>
+    <div id="vwap-chart" style="width:100%;height:33%;"></div>
     <script>
         fetch('data1.json')
             .then(response => response.json())
@@ -108,6 +109,21 @@
                     name: 'Bitcoin 365d RV'
                 };
 
+                // VWAP trace
+                const vwapTrace = {
+                    x: data.hourly_dates,
+                    y: data.hourly_vwap,
+                    type: 'scatter',
+                    name: 'VWAP',
+                    line: {dash: 'dot'}
+                };
+                const closePriceTrace = {
+                    x: data.hourly_dates,
+                    y: data.hourly_close,
+                    type: 'scatter',
+                    name: 'Hourly Close Price'
+                };
+
                 // Layout for stock price chart
                 const priceLayout = {
                     title: 'Daily Stock and Bitcoin Prices',
@@ -123,6 +139,13 @@
                     yaxis: { title: 'Volatility' }
                 };
 
+                // Layout for VWAP chart
+                const vwapLayout = {
+                    title: 'Hourly Close Price and VWAP',
+                    xaxis: { title: 'Date' },
+                    yaxis: { title: 'Price' }
+                };
+
                 // Plot the price chart
                 Plotly.newPlot('price-chart', [stockPriceTrace, bitcoinPriceTrace], priceLayout);
 
@@ -131,6 +154,9 @@
                     stockVol7dTrace, stockVol14dTrace, stockVol30dTrace, stockVol90dTrace, stockVol180dTrace, stockVol365dTrace,
                     bitcoinVol7dTrace, bitcoinVol14dTrace, bitcoinVol30dTrace, bitcoinVol90dTrace, bitcoinVol180dTrace, bitcoinVol365dTrace
                 ], volatilityLayout);
+
+                // Plot the VWAP chart
+                Plotly.newPlot('vwap-chart', [closePriceTrace, vwapTrace], vwapLayout);
             });
     </script>
 </body>
