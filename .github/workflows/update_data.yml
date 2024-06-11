@@ -2,7 +2,7 @@ name: Update Data
 
 on:
   schedule:
-    - cron: '20 17 * * *'  # This runs the workflow every day at 5:08 PM UTC (12:08 PM EST)
+    - cron: '8 17 * * *'  # This runs the workflow every day at 5:08 PM UTC (12:08 PM EST)
   workflow_dispatch:
 
 jobs:
@@ -29,10 +29,11 @@ jobs:
 
       - name: Commit and push changes
         env:
-          PATMETAPLANET: ${{ secrets.PATMETAPLANET }}
+          GITHUB_TOKEN: ${{ secrets.PATMETAPLANET }}
         run: |
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git remote set-url origin https://github-actions:${{ secrets.PATMETAPLANET }}@github.com/dylanleclair19/mptesting.git
           git add data1.json
           git commit -m 'Automated data update'
-          git push https://github-actions:${{ secrets.PATMETAPLANET }}@github.com/dylanleclair19/mptesting.git HEAD:main
+          git push origin HEAD:main
