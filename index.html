@@ -8,6 +8,7 @@
 </head>
 <body>
     <h1>Metaplanet Stock and Bitcoin Realized Volatility</h1>
+    <div id="performance-chart" style="width:100%;height:33%;"></div>
     <div id="price-chart" style="width:100%;height:33%;"></div>
     <div id="volatility-chart" style="width:100%;height:33%;"></div>
     <div id="vwap-chart" style="width:100%;height:33%;"></div>
@@ -15,6 +16,23 @@
         fetch('data1.json')
             .then(response => response.json())
             .then(data => {
+                // Performance bar chart
+                const performanceTrace = {
+                    x: Object.keys(data.percent_changes),
+                    y: Object.values(data.percent_changes),
+                    type: 'bar',
+                    marker: {
+                        color: '#FF9900'
+                    }
+                };
+
+                // Layout for performance bar chart
+                const performanceLayout = {
+                    title: '% Change Since Metaplanet Adoption of Bitcoin Standard (JPY Terms)',
+                    xaxis: { title: 'Asset' },
+                    yaxis: { title: '% Change' }
+                };
+
                 // Stock price trace
                 const stockPriceTrace = {
                     x: data.dates,
@@ -145,6 +163,9 @@
                     xaxis: { title: 'Date' },
                     yaxis: { title: 'Price' }
                 };
+
+                // Plot the performance bar chart
+                Plotly.newPlot('performance-chart', [performanceTrace], performanceLayout);
 
                 // Plot the price chart
                 Plotly.newPlot('price-chart', [stockPriceTrace, bitcoinPriceTrace], priceLayout);
