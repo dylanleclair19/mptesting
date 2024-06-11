@@ -27,7 +27,7 @@ jobs:
         run: |
           python generate_data.py
 
-      - name: Debugging: Print repository URL
+      - name: Print repository URL for debugging
         run: echo "Repository URL: https://${{ secrets.PAT3 }}@github.com/dylanleclair19/mptesting.git"
       
       - name: Commit and push changes
