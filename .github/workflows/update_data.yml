@@ -2,7 +2,7 @@ name: Update Data
 
 on:
   schedule:
-    - cron: '41 0 * * *'  # This runs the workflow every day at 12:41 AM UTC
+    - cron: '41 16 * * *'  # This runs the workflow every day at 4:41 PM UTC (11:41 AM EST)
   workflow_dispatch:
 
 jobs:
